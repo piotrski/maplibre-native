@@ -35,6 +35,8 @@ public:
           tex(tex_),
           pixelOffsetTL(pixelOffsetTL_),
           pixelOffsetBR(pixelOffsetBR_),
+          pixelOffsetTR({pixelOffsetBR_.x, pixelOffsetTL_.y}),
+          pixelOffsetBL({pixelOffsetTL_.x, pixelOffsetBR_.y}),
           glyphOffset(glyphOffset_),
           writingMode(writingMode_),
           isSDF(isSDF_),
@@ -48,6 +50,10 @@ public:
     Rect<uint16_t> tex;
     Point<float> pixelOffsetTL;
     Point<float> pixelOffsetBR;
+    // Pixel offsets of the other two corners. Without rotation they follow from TL/BR; icon-rotate
+    // rotates all four, which TL/BR alone cannot express.
+    Point<float> pixelOffsetTR;
+    Point<float> pixelOffsetBL;
     Point<float> glyphOffset;
     WritingModeType writingMode;
     bool isSDF;

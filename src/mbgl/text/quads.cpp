@@ -181,6 +181,16 @@ SymbolQuads getIconQuads(const PositionedIcon& shapedIcon,
                            pixelOffsetTL,
                            pixelOffsetBR,
                            Point<float>{minFontScaleX, minFontScaleY});
+
+        if (matrix) {
+            // icon-rotate rotates the em corners above; the fixed pixel offsets of stretched images
+            // (caps, tips) must rotate with them, or the fixed parts distort at every angle but 0.
+            auto& q = quads.back();
+            q.pixelOffsetTL = util::matrixMultiply(*matrix, pixelOffsetTL);
+            q.pixelOffsetTR = util::matrixMultiply(*matrix, Point<float>{pixelOffsetBR.x, pixelOffsetTL.y});
+            q.pixelOffsetBL = util::matrixMultiply(*matrix, Point<float>{pixelOffsetTL.x, pixelOffsetBR.y});
+            q.pixelOffsetBR = util::matrixMultiply(*matrix, pixelOffsetBR);
+        }
     };
 
     if (!hasIconTextFit || (image.stretchX.empty() && image.stretchY.empty())) {

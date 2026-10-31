@@ -1232,6 +1232,8 @@ size_t SymbolLayout::addSymbol(SymbolBucket::Buffer& buffer,
     const auto& tex = symbol.tex;
     const auto& pixelOffsetTL = symbol.pixelOffsetTL;
     const auto& pixelOffsetBR = symbol.pixelOffsetBR;
+    const auto& pixelOffsetTR = symbol.pixelOffsetTR;
+    const auto& pixelOffsetBL = symbol.pixelOffsetBL;
     const auto& minFontScale = symbol.minFontScale;
 
     if (buffer.segments.empty() ||
@@ -1264,7 +1266,7 @@ size_t SymbolLayout::addSymbol(SymbolBucket::Buffer& buffer,
                                                      tex.y,
                                                      sizeData,
                                                      symbol.isSDF,
-                                                     {pixelOffsetBR.x, pixelOffsetTL.y},
+                                                     pixelOffsetTR,
                                                      minFontScale));
     vertices.emplace_back(SymbolBucket::layoutVertex(labelAnchor.point,
                                                      bl,
@@ -1273,7 +1275,7 @@ size_t SymbolLayout::addSymbol(SymbolBucket::Buffer& buffer,
                                                      tex.y + tex.h,
                                                      sizeData,
                                                      symbol.isSDF,
-                                                     {pixelOffsetTL.x, pixelOffsetBR.y},
+                                                     pixelOffsetBL,
                                                      minFontScale));
     vertices.emplace_back(SymbolBucket::layoutVertex(labelAnchor.point,
                                                      br,
