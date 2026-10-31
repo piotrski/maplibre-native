@@ -129,7 +129,7 @@ void main() {
 
     const vec4 projected_pos = drawable.label_plane_matrix * vec4(in_projected_pos.xy, 0.0, 1.0);
     const vec2 pos0 = projected_pos.xy / projected_pos.w;
-    const vec2 posOffset = a_offset * max(a_minFontScale, fontScale) / 32.0 + a_pxoffset / 16.0;
+    const vec2 posOffset = a_offset * max(a_minFontScale, fontScale) / 32.0 + a_pxoffset / 16.0 * fontScale;
     gl_Position = drawable.coord_matrix * vec4(pos0 + rotation_matrix * posOffset, 0.0, 1.0);
     applySurfaceTransform();
 
